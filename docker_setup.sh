@@ -19,5 +19,7 @@ function set_proxy() {
 function unset_proxy() {
   unset http_proxy https_proxy all_proxy
 }
+# tensorflow directory
+export TFDS_DATA_DIR="/media/yufeng/tensorflow_dataset"
 END
 source /root/.bashrc

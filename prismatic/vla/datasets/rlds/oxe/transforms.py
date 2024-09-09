@@ -28,6 +28,34 @@ from prismatic.vla.datasets.rlds.utils.data_utils import (
 )
 
 
+def sacson_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
+    for key in trajectory.keys():
+        print("currently processing key:", key)
+        print("key content:", trajectory[key])
+
+    # for key in trajectory.keys():
+    #     if key == "traj_metadata":
+    #         continue
+    #     elif key in ["observation", "action"]:
+    #         for key2 in trajectory[key]:
+    #             trajectory[key][key2] = trajectory[key][key2][1:]
+    #     else:
+    #         trajectory[key] = trajectory[key][1:]
+
+    # trajectory["action"] = tf.concat(
+    #     (
+    #         trajectory["action"]["world_vector"],
+    #         trajectory["action"]["rotation_delta"],
+    #         tf.cast(trajectory["action"]["open_gripper"][:, None], tf.float32),
+    #     ),
+    #     axis=-1,
+    # )
+    # trajectory["language_instruction"] = trajectory["observation"]["natural_language_instruction"]
+    # trajectory["observation"]["EEF_state"] = trajectory["observation"]["state"][:, :6]
+    # trajectory["observation"]["gripper_state"] = trajectory["observation"]["state"][:, -1:]
+    return trajectory
+
+
 def bridge_oxe_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
     """
     Applies to version of Bridge V2 in Open X-Embodiment mixture.
@@ -826,6 +854,7 @@ def tdroid_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
 
 # === Registry ===
 OXE_STANDARDIZATION_TRANSFORMS = {
+    "sacson": sacson_dataset_transform,
     "bridge_oxe": bridge_oxe_dataset_transform,
     "bridge_orig": bridge_orig_dataset_transform,
     "bridge_dataset": bridge_orig_dataset_transform,
