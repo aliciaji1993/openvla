@@ -48,7 +48,7 @@ class ActionEncoding(IntEnum):
     JOINT_POS = 2           # Joint Delta Position (7) + Gripper Open/Close (1)
     JOINT_POS_BIMANUAL = 3  # Joint Delta Position (2 x [ Joint Delta Position (6) + Gripper Open/Close (1) ])
     EEF_R6 = 4              # EEF Delta XYZ (3) + R6 (6) + Gripper Open/Close (1)
-    BASE_POS = 5            # base position XY (2)
+    BASE_TRAJ = 5           # future base movement trajectory (8*2)
     # fmt: on
 
 
@@ -59,7 +59,7 @@ OXE_DATASET_CONFIGS = {
         "depth_obs_keys": {"primary": None, "secondary": None, "wrist": None},
         "state_obs_keys": ["state", None],
         "state_encoding": StateEncoding.BASE_POS,
-        "action_encoding": ActionEncoding.BASE_POS,
+        "action_encoding": ActionEncoding.BASE_TRAJ,
     },
     "fractal20220817_data": {
         "image_obs_keys": {"primary": "image", "secondary": None, "wrist": None},

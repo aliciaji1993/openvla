@@ -28,32 +28,11 @@ from prismatic.vla.datasets.rlds.utils.data_utils import (
 )
 
 
-def sacson_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
-    for key in trajectory.keys():
-        print("currently processing key:", key)
-        print("key content:", trajectory[key])
+def sacson_dataset_transform(traj: Dict[str, Any]) -> Dict[str, Any]:
+    # flatten trajectory action shape from (8, 2) into (-1, 16)
+    traj["action"] = tf.reshape(traj["action"], (-1, 16))
 
-    # for key in trajectory.keys():
-    #     if key == "traj_metadata":
-    #         continue
-    #     elif key in ["observation", "action"]:
-    #         for key2 in trajectory[key]:
-    #             trajectory[key][key2] = trajectory[key][key2][1:]
-    #     else:
-    #         trajectory[key] = trajectory[key][1:]
-
-    # trajectory["action"] = tf.concat(
-    #     (
-    #         trajectory["action"]["world_vector"],
-    #         trajectory["action"]["rotation_delta"],
-    #         tf.cast(trajectory["action"]["open_gripper"][:, None], tf.float32),
-    #     ),
-    #     axis=-1,
-    # )
-    # trajectory["language_instruction"] = trajectory["observation"]["natural_language_instruction"]
-    # trajectory["observation"]["EEF_state"] = trajectory["observation"]["state"][:, :6]
-    # trajectory["observation"]["gripper_state"] = trajectory["observation"]["state"][:, -1:]
-    return trajectory
+    return traj
 
 
 def bridge_oxe_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
@@ -855,6 +834,7 @@ def tdroid_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
 # === Registry ===
 OXE_STANDARDIZATION_TRANSFORMS = {
     "sacson": sacson_dataset_transform,
+    "sacson_orig": sacson_dataset_transform,
     "bridge_oxe": bridge_oxe_dataset_transform,
     "bridge_orig": bridge_orig_dataset_transform,
     "bridge_dataset": bridge_orig_dataset_transform,
