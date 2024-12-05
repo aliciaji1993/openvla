@@ -44,7 +44,7 @@ class RLDSBatchTransform:
         # Construct Chat-based Prompt =>> Input is default query + language instruction, output are the action tokens
         prompt_builder = self.prompt_builder_fn("openvla")
         conversation = [
-            {"from": "human", "value": f"What action should the robot take to {lang}?"},
+            {"from": "human", "value": lang},
             {"from": "gpt", "value": self.action_tokenizer(action)},
         ]
         for turn in conversation:
