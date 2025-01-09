@@ -10,4 +10,4 @@ docker run -itd --rm --network=host --gpus=all -e DISPLAY=$DISPLAY \
   -v /media/yufeng:/media/yufeng \
   -v /media/yufeng/checkpoints:/root/.cache/huggingface/hub \
   --name openvla \
-  aliciaji/openvla:0.1.0 bash
+  aliciaji/openvla bash

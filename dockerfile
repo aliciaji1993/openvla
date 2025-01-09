@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04
+FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 
 # apt
 RUN apt-get update -q \
@@ -37,3 +37,13 @@ RUN pip install PySocks
 # required by OpenVLA
 RUN pip install packaging ninja
 RUN pip install "flash-attn==2.5.5" --no-build-isolation
+
+# openvla install requirements
+RUN pip install transformers==4.40.1 tokenizers==0.19.1 timm==0.9.10
+
+# robot deploy requirements
+RUN pip pip install numpy==1.24.4 \
+    opencv-python==4.8.0.76 \
+    scipy==1.10.1 \
+    protobuf==4.24.3 \
+    grpcio==1.58.0 

@@ -105,6 +105,7 @@ def visualize_result(
 def eval_model(cfg: EvalConfig) -> None:
     # configs
     device_id = cfg.device
+    run_dir = cfg.run_dir
     dataset_dir = cfg.data_root_dir / cfg.dataset_name
     output_dir = cfg.output_root_dir / cfg.dataset_name
     if output_dir.exists():
@@ -112,16 +113,16 @@ def eval_model(cfg: EvalConfig) -> None:
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     # load from checkpoints directly
-    processor = AutoProcessor.from_pretrained(cfg.run_dir, trust_remote_code=True)
+    processor = AutoProcessor.from_pretrained(run_dir, trust_remote_code=True)
     vla = AutoModelForVision2Seq.from_pretrained(
-        cfg.run_dir,
+        run_dir,
         torch_dtype=torch.bfloat16,
         low_cpu_mem_usage=True,
         trust_remote_code=True,
     ).to(device_id)
 
     # load dataset statistics
-    with open(Path(cfg.run_dir) / "dataset_statistics.json", "r") as f:
+    with open(Path(run_dir) / "dataset_statistics.json", "r") as f:
         vla.norm_stats = json.load(f)
 
     # load rlds dataset
@@ -172,7 +173,7 @@ def eval_model(cfg: EvalConfig) -> None:
 
             # compute action predictions
             instruction = instructions[step].decode().lower()
-            inputs = processor(instruction, image).to(cfg.device, dtype=torch.bfloat16)
+            inputs = processor(instruction, image).to(device_id, dtype=torch.bfloat16)
             action_pred = vla.predict_action(**inputs, unnorm_key="sacson", do_sample=False).reshape(8,2)
    
             # visualize step
