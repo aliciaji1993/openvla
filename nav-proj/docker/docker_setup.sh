@@ -2,6 +2,8 @@
 
 # build project package
 source /env/bin/activate
+cd /home/yufeng/homebot_real
+pip install -e .
 cd /home/yufeng/openvla
 pip install -e .
 

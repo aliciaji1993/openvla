@@ -35,6 +35,13 @@ def sacson_dataset_transform(traj: Dict[str, Any]) -> Dict[str, Any]:
     return traj
 
 
+def homebot_v2_dataset_transform(traj: Dict[str, Any]) -> Dict[str, Any]:
+    # flatten trajectory action shape from (8, 2) into (-1, 16)
+    traj["action"] = tf.reshape(traj["action"], (-1, 16))
+
+    return traj
+
+
 def bridge_oxe_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
     """
     Applies to version of Bridge V2 in Open X-Embodiment mixture.
@@ -835,6 +842,7 @@ def tdroid_dataset_transform(trajectory: Dict[str, Any]) -> Dict[str, Any]:
 OXE_STANDARDIZATION_TRANSFORMS = {
     "sacson": sacson_dataset_transform,
     "sacson_orig": sacson_dataset_transform,
+    "homebot_v2": homebot_v2_dataset_transform,
     "bridge_oxe": bridge_oxe_dataset_transform,
     "bridge_orig": bridge_orig_dataset_transform,
     "bridge_dataset": bridge_orig_dataset_transform,

@@ -9,6 +9,22 @@ from typing import Dict, List, Tuple
 
 # fmt: off
 OXE_NAMED_MIXTURES: Dict[str, List[Tuple[str, float]]] = {
+    # === Sacson+Qizhi Mixture ===
+    "sacson_homebot_v2_mixture_1": [
+        ("sacson", 1.0),                                        # Berkeley Sacson/Huron dataset
+        ("homebot_v2", 1.0),                                    # Qizhi fisheye dataset V2 (filter backward steps)
+    ],
+
+    "sacson_homebot_v2_mixture_2": [
+        ("sacson", 1.0),                                        # Berkeley Sacson/Huron dataset
+        ("homebot_v2", 2.0),                                    # Qizhi fisheye dataset V2 (filter backward steps)
+    ],
+
+    "sacson_homebot_v2_mixture_3": [
+        ("sacson", 1.0),                                        # Berkeley Sacson/Huron dataset
+        ("homebot_v2", 5.0),                                    # Qizhi fisheye dataset V2 (filter backward steps)
+    ],
+    
     # === Bridge V2 Dataset ===
     "bridge": [
         # ("bridge_oxe", 1.0),                                    # Version of Bridge V2 in Open-X GCP Bucket

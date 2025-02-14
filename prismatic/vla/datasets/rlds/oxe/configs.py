@@ -61,6 +61,13 @@ OXE_DATASET_CONFIGS = {
         "state_encoding": StateEncoding.BASE_POS,
         "action_encoding": ActionEncoding.BASE_TRAJ,
     },
+    "homebot_v2": {
+        "image_obs_keys": {"primary": "image", "secondary": None, "wrist": None},
+        "depth_obs_keys": {"primary": None, "secondary": None, "wrist": None},
+        "state_obs_keys": ["state", None],
+        "state_encoding": StateEncoding.BASE_POS,
+        "action_encoding": ActionEncoding.BASE_TRAJ,
+    },
     "fractal20220817_data": {
         "image_obs_keys": {"primary": "image", "secondary": None, "wrist": None},
         "depth_obs_keys": {"primary": None, "secondary": None, "wrist": None},
